@@ -8,39 +8,41 @@
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+    <!--===== Navbar =====-->
    <div class="container"> 
-    <div class="navbar">
+        <div class="navbar">
         <img src=".//images/سليم❤️.png"class="logo">
         <nav>
             <ul id="menulist">
-                <li><a href="">About</a></li>
+                <li><a href="#About">About</a></li>
                 <li><a href="./pdf/Abdul Saleem TA-Resume.pdf">CV</a></li>
                 <li><a href="">Our Company</a></li>
             </ul>
         </nav>
         <img src=".//images/menu.png" class="menu" 
         onclick="togglemenu()">
-    </div>
-
-    <div class="row">
+        </div>
+    <!--===== Home =====-->
+        <div class="row">
         <div class="col-1">
-            <h2 id="AbdulSaleem"> Abdul<br>Saleem</h2>
-            <h3> I am a freelancer software tester at uTest.</h3>
+            <h2 id="AbdulSaleem" > Abdul<br>Saleem</h2>
+            <h3 class="text"> </h3>
         </div>
         <div class="col-2">
             <img src="./images/Group 1 (1).png" class="salim">
             <div class="box"></div>
         </div>
-    </div>
+        </div>
     
-    <div class="social_links">
+        <div class="social_links">
         <a href="https://www.linkedin.com/in/abdul-saleem-982485227/" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
         <a href="https://twitter.com/salim_sparta" class="home__social-icon"><i class='bx bxl-twitter' ></i></a>
         <a href="https://github.com/AbdulSalimSparta" class="home__social-icon"><i class='bx bxl-github' ></i></a>
         <a href="https://www.instagram.com/_sparta_salim/"  class="home__social-icon"><i class='bx bxl-instagram' ></i></a>
         <a href="https://www.facebook.com/profile.php?id=100027596809970" class="home__social-icon"><i class='bx bxl-facebook' ></i></a>
-    </div>
+        </div>
    </div>
+
 
    <script>
         var menuList=document.getElementById("menulist");
@@ -56,6 +58,90 @@
                 menuList.style.maxHeight = "0px";
             }
         }
+        
+        // ——————————————————————————————————————————————————
+// TextScramble
+// ——————————————————————————————————————————————————
+
+    class TextScramble {
+    constructor(el) {
+    this.el = el
+    this.chars = '!<>-_\\/[]{}—=+*^?#________'
+    this.update = this.update.bind(this)
+  }
+    setText(newText) {
+    const oldText = this.el.innerText
+    const length = Math.max(oldText.length, newText.length)
+    const promise = new Promise((resolve) => this.resolve = resolve)
+    this.queue = []
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || ''
+      const to = newText[i] || ''
+      const start = Math.floor(Math.random() * 40)
+      const end = start + Math.floor(Math.random() * 40)
+      this.queue.push({ from, to, start, end })
+    }
+    cancelAnimationFrame(this.frameRequest)
+    this.frame = 0
+    this.update()
+    return promise
+  }
+    update() {
+    let output = ''
+    let complete = 0
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i]
+      if (this.frame >= end) {
+        complete++
+        output += to
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar()
+          this.queue[i].char = char
+        }
+        output += `<span class="dud">${char}</span>`
+      } else {
+        output += from
+      }
+    }
+    this.el.innerHTML = output
+    if (complete === this.queue.length) {
+      this.resolve()
+    } else {
+      this.frameRequest = requestAnimationFrame(this.update)
+      this.frame++
+    }
+  }
+    randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)]
+  }
+}
+
+    // ——————————————————————————————————————————————————
+// Example
+// ——————————————————————————————————————————————————
+
+    const phrases = [
+  'Abdul Saleem,',
+  'Ui Designer,',
+  'Freelancer at uTest..!',
+  'Student at M.A.M.CET',
+  'Learner / Coder',
+  'Co-Founder of A2EditLook..#,'
+]
+
+    const el = document.querySelector('.text')
+    const fx = new TextScramble(el)
+
+    let counter = 0
+    const next = () => {
+  fx.setText(phrases[counter]).then(() => {
+    setTimeout(next, 800)
+  })
+  counter = (counter + 1) % phrases.length
+}
+
+    next()
    </script>
 </body>
 </html>
