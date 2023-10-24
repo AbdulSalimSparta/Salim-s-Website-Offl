@@ -1,3 +1,10 @@
+:root {
+	--delay: 0;
+	--duration: 800ms;
+	--iterations: 1;
+}
+/* •·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•·•· */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -5,10 +12,82 @@
     margin:0;
     padding:0;
     font-family: "Poppins";
+    scroll-behavior: smooth;
 }
 body {
     background : linear-gradient(to right, #dedede , #fcb346);
 }
+
+
+.loader {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    right:50%;
+    position: absolute;
+    border: 4px solid #363636;
+    animation: loader 2s infinite ease;
+
+    body {
+        background-color: #242F3F;
+      }
+  }
+  
+  .loader-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #363636;
+    animation: loader-inner 2s infinite ease-in;
+  }
+  
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    
+    25% {
+      transform: rotate(180deg);
+    }
+    
+    50% {
+      transform: rotate(180deg);
+    }
+    
+    75% {
+      transform: rotate(360deg);
+    }
+    
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes loader-inner {
+    0% {
+      height: 0%;
+    }
+    
+    25% {
+      height: 0%;
+    }
+    
+    50% {
+      height: 100%;
+    }
+    
+    75% {
+      height: 100%;
+    }
+    
+    100% {
+      height: 0%;
+    }
+  }
+
+
+
 .container{
     width: 100;
     min-height: 100vh;
@@ -73,11 +152,7 @@ nav ul li a:hover{
     font-size: 120px;
     font-weight: 550;
     color: #363636;
-    text-shadow: 0 1px 0 #ccc,
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 10px 10px rgba(0,0,0,.2),
-               0 20px 20px rgba(0,0,0,.15);  
+    
 }
 .col-1 h3{
     font-size: 16px;
@@ -95,11 +170,6 @@ nav ul li a:hover{
     width: 10px;
     height: 90%;
     background: #363636;
-    box-shadow: 0 1px 0 #ccc,
-               0 2px 0 #c9c9c9,
-               0 3px 0 #bbb,
-               0 10px 10px rgba(0,0,0,.2),
-               0 20px 20px rgba(0,0,0,.15);
     position: absolute;
     right:-40px;
     top:8px;
@@ -108,7 +178,6 @@ nav ul li a:hover{
 
 .col-2{
     position:relative;
-   
     flex-basis: 40%;
     display: flex;
     align-items: center;
@@ -116,8 +185,9 @@ nav ul li a:hover{
 .col-2 .salim{
     width: 60%;
     margin-top: -15%;
-    animation: starts 0.5s linear;
 }
+
+
 
 .box{
     position: absolute;
@@ -148,8 +218,110 @@ nav ul li a:hover{
  }
 
 
+.scroll-text{
+    margin-top: 20px;
+    font-size: 16px;;
+    justify-content: center;
 
+}
+
+.Arrow{
+    width:20px;
+    height: 30px;
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+.Arrow:hover{
+    width:20px;
+    height: 10px;
+    cursor: pointer;
+    transform: rotate(90deg);
+}
  
+
+.reveal-text,
+.reveal-text::after {
+	animation-delay: var(--animation-delay, 2s);
+	animation-iteration-count: var(--iterations, 1);
+	animation-duration: var(--duration, 800ms);
+	animation-fill-mode: both;
+	animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.reveal-text {
+	--animation-delay: var(--delay, 0);
+	--animation-duration: var(--duration, 800ms);
+	--animation-iterations: var(--iterations, 1);
+	position: relative;
+	font-size: 10vw;
+	animation-name: clip-text;
+	color: #FFF;
+	white-space: nowrap;
+	cursor: default;
+	
+	&::after {
+		content: "";
+		position: absolute;
+		z-index: 999;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #363636;
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		pointer-events: none;
+		animation-name: text-revealer;
+	}
+	
+}
+
+
+@keyframes clip-text {
+	from {
+		clip-path: inset(0 100% 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+
+@keyframes text-revealer {
+	
+	0%, 50% {
+		transform-origin: 0 50%;
+	}
+	
+	60%, 100% {
+		transform-origin: 100% 50%;		
+	}
+
+	
+	60% {
+		transform: scaleX(1);
+	}
+	
+	100% {
+		transform: scaleX(0);
+	}
+}
+
+
+
+
+#About{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+
+
+
+
+
 
  @media only screen and (max-width: 1080px){
     nav ul{
@@ -213,12 +385,103 @@ nav ul li a:hover{
 
 
  ::-webkit-scrollbar{
-    width:15px;
+    width:5px;
  }
  ::-webkit-scrollbar-track{
-    background: #dedede;
+    background: #fcb346;
  }
  ::-webkit-scrollbar-thumb{
     background:linear-gradient( #dedede , #fcb346) ;
     border-radius: 10px;
  }
+
+
+
+/*
+
+ section {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity .25s ease .65s;
+    z-index: -3
+}
+
+
+
+#shapes-mask img .layer {
+    position: absolute;
+    z-index: 1
+}
+
+section img {
+    left: 30%;
+    top: 20%;
+}
+
+#shapes-mask .img2{
+    left: 90%;
+    top: 70%
+}
+
+#shapes-mask .img3 {
+    left: 100%;
+    top: 20%;
+
+}
+
+#shapes-mask .img4 {
+    left: 70%;
+    top: 20%
+}
+
+#shapes-mask .img5 {
+    left: 5%;
+    top: 80%
+}
+
+#shapes-mask .img6{
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg)
+}
+
+#shapes-mask .p6 {
+    left: 2%;
+    top: 20%
+}
+
+#shapes-mask .p7 {
+    left: 50%;
+    bottom: 2%
+}
+
+#shapes-mask .p8 {
+    left: 85%;
+    bottom: 4%
+}
+
+#shapes-mask .p9 {
+    left: 20%;
+    top: 2%;
+    -webkit-transform: rotate(65deg);
+    transform: rotate(65deg)
+}
+
+#shapes-mask .p10 {
+    left: 10%;
+    bottom: 2%;
+    -webkit-transform: rotate(85deg);
+    transform: rotate(85deg)
+}
+
+#shapes-mask .p11 {
+    left: 90%;
+    top: 2%;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+*/
