@@ -196,8 +196,14 @@ nav ul li a:hover {
     width: 20px;
     cursor: pointer;
     background-position: right center;
-    margin-right: -70px;
+
+    
+    transition: 500ms ease-in-out;
 }
+.move:hover{
+    transform: translateY(15px);
+}
+
 
 .reveal-text,
 .reveal-text::after {
@@ -280,9 +286,7 @@ nav ul li a:hover {
 
 
 @media only screen and (max-width: 1080px) {
-  .move{
-    display: none !important;
-  }
+  
   nav ul {
     width: 100%;
     position: absolute;
@@ -321,15 +325,6 @@ nav ul li a:hover {
 
   .col-2.salim {
     width: 77%;
-  }
-  .move{
-    position: relative;
-    height: 30px;
-    width: 30px;
-    background-position: right center;
-    margin-right: -50px;
-    
-
   }
   .col-1 {
     flex-basis: 100%;
